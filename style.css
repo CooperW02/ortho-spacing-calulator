@@ -100,6 +100,27 @@ header h1 {
 .field-row input:focus { border-color: var(--blue); background: #fff; }
 .field-row .unit { font-size: 0.68rem; color: var(--text-muted); width: 8px; }
 
+.panel-footer {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.src-btn {
+  display: inline-block;
+  padding: 3px 8px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.src-btn:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
 button#calc-btn {
   width: 100%;
   padding: 8px 0;
@@ -159,6 +180,7 @@ button#calc-btn:hover { background: #2c3348; }
 }
 
 svg { display: block; }
+
 
 /* ── SVG classes ── */
 
