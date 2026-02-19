@@ -1,0 +1,233 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #eef0f3;
+  --surface:    #ffffff;
+  --border:     #c8cdd6;
+  --text:       #1a1d23;
+  --text-muted: #6b7280;
+  --blue:       #1a5fa8;
+  --red:        #b52a1e;
+  --header-bg:  #1c2230;
+  --mono:       'JetBrains Mono', monospace;
+  --sans:       'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+header {
+  background: var(--header-bg);
+  color: #d0d4de;
+  padding: 0 20px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-bottom: 2px solid #0d1018;
+}
+.logo { font-size: 1.2rem; color: #4a9ede; line-height: 1; }
+header h1 {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #a0a8bc;
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Left panel ── */
+.panel {
+  width: 220px;
+  min-width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.section { margin-bottom: 18px; }
+
+.section-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-bottom: 5px;
+  margin-bottom: 9px;
+  border-bottom: 1px solid var(--border);
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+.field-row label { font-size: 0.78rem; flex: 1; }
+.field-row .axis { color: var(--text-muted); font-size: 0.72rem; }
+.field-row input {
+  width: 58px;
+  padding: 3px 6px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  text-align: right;
+  border-radius: 2px;
+  transition: border-color 0.15s;
+}
+.field-row input:focus { border-color: var(--blue); background: #fff; }
+.field-row .unit { font-size: 0.68rem; color: var(--text-muted); width: 8px; }
+
+button#calc-btn {
+  width: 100%;
+  padding: 8px 0;
+  background: #1c2230;
+  color: #fff;
+  border: none;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-bottom: 18px;
+  transition: background 0.15s;
+}
+button#calc-btn:hover { background: #2c3348; }
+
+#result-rows { display: flex; flex-direction: column; gap: 3px; }
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--border);
+}
+.result-key { font-size: 0.7rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+.result-val { font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--red); }
+
+/* ── Right: drawing ── */
+.drawing-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+  padding: 12px;
+  gap: 6px;
+  min-width: 0;
+}
+
+.drawing-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.svg-wrap {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: auto;
+  min-height: 0;
+}
+
+svg { display: block; }
+
+/* ── SVG classes ── */
+
+/* Drawing area background — light fill so grid lines contrast against it */
+.draw-area-bg {
+  fill: #dde2ea;
+  stroke: none;
+}
+
+/* Grid lines rendered on top of bg */
+.grid-line {
+  stroke: #b8bfcc;
+  stroke-width: 0.6;
+}
+
+/* Drawing area border — drawn last over grid */
+.draw-area-box {
+  fill: none;
+  stroke: #7a8499;
+  stroke-width: 1.2;
+  stroke-dasharray: 5 3;
+}
+
+/* View boxes — dark fill so labels are readable */
+.box {
+  fill: #252e42;
+  stroke: #476199;
+  stroke-width: 3;
+}
+.box-accent {
+  fill: #1e2840;
+  stroke: #476199;
+  stroke-width: 3;
+}
+
+.diag {
+  stroke: #c06828;
+  stroke-width: 3;
+  fill: none;
+}
+
+/* View labels — light text on dark boxes */
+.view-label {
+  fill: #7a8fb5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+/* Shape dimension arrows — blue */
+.dim-shape { stroke: var(--blue); stroke-width: 1.5; fill: none; }
+.dim-shape-text {
+  fill: var(--blue);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+/* Dotted extension lines from arrowhead tips to box corners */
+.ext-dot {
+  stroke: #1a5fa8;
+  stroke-width: 0.7;
+  stroke-dasharray: 2 3;
+  opacity: 0.6;
+}
+
+/* Spacing arrows — red */
+.dim-space { stroke: var(--red); stroke-width: 1.5; fill: none; }
+.dim-space-text {
+  fill: var(--red);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
