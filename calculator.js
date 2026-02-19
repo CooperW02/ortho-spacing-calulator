@@ -72,7 +72,26 @@ function readInputs() {
 
 // ─── Calculate button ─────────────────────────────────────────────────────────
 function calculate() {
-  const { shape, aH, aV } = readInputs();
+  const { W, H, D, shape, aH, aV } = readInputs();
+  const dims = [W, H, D];
+  const area_test = dims.some(v => v > aH || v > aV);
+  const max_test = [...dims, aH, aV].some(v => v >= 50);
+  const area_size_test = aH > 50 || aV > 50;
+
+  // check if values are unreasonably large or if they are invalid
+  if (area_test) {
+    alert('Invalid input! Make sure all dimensions are under the drawing area!');
+  }
+  if (max_test) {
+    alert('Invalid input! Make sure all values are below 50.');
+  }
+  if (area_size_test) {
+    alert('Invalid input! Drawing area cannot exceed 50 units.');
+  }
+  if (area_test || max_test || area_size_test) {
+    return;
+  }
+
   const sp = getSpacing(aH, aV, shape);
 
   const v0 = sp.vert[0];
@@ -90,9 +109,9 @@ function calculate() {
     ['v1  mid gap', v1],
   ].map(([k, v]) =>
     `<div class="result-row">
-       <span class="result-key">${k}</span>
-       <span class="result-val">${v.toFixed(2)}</span>
-     </div>`
+      <span class="result-key">${k}</span>
+      <span class="result-val">${v.toFixed(2)}</span>
+    </div>`
   ).join('');
 
   render(shape, { v0, v1, h0, h1 }, true);
