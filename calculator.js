@@ -77,8 +77,8 @@ function calculate() {
   const { W, H, D, shape, aH, aV } = readInputs();
   const dims = [W, H, D];
   const area_test = dims.some(v => v > aH || v > aV);
-  const max_test = [...dims, aH, aV].some(v => v >= 50);
-  const area_size_test = aH > 50 || aV > 50;
+  const max_test = [...dims, aH, aV].some(v => v > 50);
+  const area_size_test = aH => 50 || aV => 50;
 
   // check if values are unreasonably large or if they are invalid
   if (area_test) {
