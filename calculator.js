@@ -49,6 +49,8 @@ function getSpacing(areaH, areaV, shape) {
     // Middle gap = 3 units (or half the space if space is too tight for that)
     const h1 = Math.min(3, Math.floor(horiRounded / 2));
     const h0 = Math.max(0, (horiRounded - h1) / 2);
+    // const h1 = 3;
+    // const h0 = (horiRounded - 3) / 2;
     hori = [h0, h1];
   }
 
@@ -382,19 +384,19 @@ function render(shape, sp, calculated) {
 
   // Along top edge of top row (y = tlY) — labels below (+10)
   if (pH0 > 1)
-    dimArrow(daX, tlY, tlX, tlY, fmt(h0), 'space', { labelOffset: 10 });
+    dimArrow(daX, tlY, tlX, tlY, fmt(h0), 'space', { labelOffset: -10 });
   if (pH1 > 1)
-    dimArrow(tlX + tlW, tlY, trX, tlY, fmt(h1), 'space', { labelOffset: 10 });
+    dimArrow(tlX + tlW, tlY, trX, tlY, fmt(h1), 'space', { labelOffset: -10 });
   if (pH0 > 1)
-    dimArrow(trX + trW, tlY, daX + daW, tlY, fmt(h0), 'space', { labelOffset: 10 });
+    dimArrow(trX + trW, tlY, daX + daW, tlY, fmt(h0), 'space', { labelOffset: -10 });
 
   // Along bottom edge of bottom row (y = blY + blH) — labels above (-8)
   if (pH0 > 1)
-    dimArrow(daX, blY + blH, blX, blY + blH, fmt(h0), 'space', { labelOffset: -8 });
+    dimArrow(daX, blY + blH, blX, blY + blH, fmt(h0), 'space', { labelOffset: 8 });
   if (pH1 > 1)
-    dimArrow(blX + blW, blY + blH, brX, blY + blH, fmt(h1), 'space', { labelOffset: -8 });
+    dimArrow(blX + blW, blY + blH, brX, blY + blH, fmt(h1), 'space', { labelOffset: 8 });
   if (pH0 > 1)
-    dimArrow(brX + brW, blY + blH, daX + daW, blY + blH, fmt(h0), 'space', { labelOffset: -8 });
+    dimArrow(brX + brW, blY + blH, daX + daW, blY + blH, fmt(h0), 'space', { labelOffset: 8 });
 
   // — Vertical spacing arrows —
   // Labels point INWARD (left-col labels go right, right-col labels go left)
