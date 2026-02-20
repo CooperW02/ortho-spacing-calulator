@@ -32,8 +32,10 @@ function getSpacing(areaH, areaV, shape) {
     vert = [vertRounded / 3, vertRounded / 3, vertRounded / 3];
   } else {
     // Middle gap = 3 units (or half the space if space is too tight for that)
-    const v1 = Math.min(3, Math.floor(vertRounded / 2));
-    const v0 = Math.max(0, (vertRounded - v1) / 2);
+    // const v1 = Math.min(3, Math.floor(vertRounded / 2));
+    // const v0 = Math.max(0, (vertRounded - v1) / 2);
+    const v1 = 3;
+    const v0 = (vertRounded - 3) / 2;
     vert = [v0, v1];
   }
 
@@ -47,10 +49,10 @@ function getSpacing(areaH, areaV, shape) {
     hori = [horiRounded / 3, horiRounded / 3, horiRounded / 3];
   } else {
     // Middle gap = 3 units (or half the space if space is too tight for that)
-    const h1 = Math.min(3, Math.floor(horiRounded / 2));
-    const h0 = Math.max(0, (horiRounded - h1) / 2);
-    // const h1 = 3;
-    // const h0 = (horiRounded - 3) / 2;
+    // const h1 = Math.min(3, Math.floor(horiRounded / 2));
+    // const h0 = Math.max(0, (horiRounded - h1) / 2);
+    const h1 = 3;
+    const h0 = (horiRounded - 3) / 2;
     hori = [h0, h1];
   }
 
@@ -190,7 +192,7 @@ function dimArrow(x1, y1, x2, y2, label, type, opts) {
   } else if (isV) {
     // Vertical arrow: place label to specified side
     const side = opts.labelSide === 'right' ? 1 : -1;
-    const offset = opts.labelOffset !== undefined ? opts.labelOffset : 12;
+    const offset = opts.labelOffset !== undefined ? opts.labelOffset : 8;
     t.setAttribute('x', mx + side * offset);
     t.setAttribute('y', my);
     t.setAttribute('text-anchor', opts.labelSide === 'right' ? 'start' : 'end');
