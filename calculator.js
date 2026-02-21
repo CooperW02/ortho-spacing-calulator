@@ -104,7 +104,7 @@ function calculate() {
     alert('Invalid input! Not enough space left for the middle gap of 3 — increase the drawing area or reduce shape dimensions.')
   };
   if (fatal_test) {
-    alert('Fatal error! How have you done this? im genuinely impressed.')
+    alert('Fatal error! Maybe your input is invalid?')
   };
   if (area_test || max_test || area_size_test || gap_test || fatal_test) {
     return;
