@@ -78,23 +78,37 @@ function readInputs() {
 function calculate() {
   const { W, H, D, shape, aH, aV } = readInputs();
   const dims = [W, H, D];
+  const all_vals = [W, H, D, aH, aV]
+
   const area_test = dims.some(v => v > aH || v > aV);
   const max_test = [...dims, aH, aV].some(v => v > 50);
   const area_size_test = aH > 50 || aV > 50;
 
+  const fatal_test = all_vals.some(v => v < 0)
+
+  // new check to check if theres enough space with a middle gap of 3
+  const vertRem = Math.round(aV - (shape.FRONT.V + shape.TOP.V));
+  const horiRem = Math.round(aH - (shape.FRONT.H + shape.RIGHT.H));
+  const gap_test = vertRem < 3 || horiRem < 3;
   // check if values are unreasonably large or if they are invalid
   if (area_test) {
     alert('Invalid input! Make sure all dimensions are under the drawing area!');
-  }
+  };
   if (max_test) {
     alert('Invalid input! Make sure all values are below 50.');
-  }
+  };
   if (area_size_test) {
     alert('Invalid input! Drawing area cannot exceed 50 units.');
-  }
-  if (area_test || max_test || area_size_test) {
+  };
+  if (gap_test) {
+    alert('Invalid input! Not enough space left for the middle gap of 3 — increase the drawing area or reduce shape dimensions.')
+  };
+  if (fatal_test) {
+    alert('Fatal error! How have you done this? im genuinely impressed.')
+  };
+  if (area_test || max_test || area_size_test || gap_test || fatal_test) {
     return;
-  }
+  };
 
   const sp = getSpacing(aH, aV, shape);
 
